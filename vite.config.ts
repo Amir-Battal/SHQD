@@ -10,7 +10,11 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["./src/assets/SHQD-ICON.jpg", "./src/assets/SHQD-ICON.jpg"],
+      includeAssets: [
+        "icons/icon-192.png",
+        "icons/icon-512.png",
+        "icons/apple-touch-icon.png"
+      ],
       manifest: {
         name: "محول العملة السورية",
         short_name: "شقد",
@@ -21,14 +25,14 @@ export default defineConfig({
         start_url: "/",
         icons: [
           {
-            src: "./src/assets/SHQD-ICON.jpg",
+            src: "/icons/icon-192.png",
             sizes: "192x192",
-            type: "image/jpg"
+            type: "image/png"
           },
           {
-            src: "./src/assets/SHQD-ICON.jpg",
+            src: "/icons/icon-512.png",
             sizes: "512x512",
-            type: "image/jpg"
+            type: "image/png"
           }
         ]
       }
