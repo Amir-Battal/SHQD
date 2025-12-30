@@ -16,6 +16,11 @@ const Welcome = ({ onStart }: Props) => {
       <Button onClick={onStart} className="w-40 h-15 md:w-50 md:h-15 mt-[2%] cursor-pointer bg-[#eeeae1] text-[#1d4139] hover:bg-[#b9b8b4]">
         <h1 className="text-[30px] md:text-[40px] font-[HarmonyBold] mt-[10%]">ابدأ</h1>
       </Button>
+
+      <h1 className="font-[Harmony] mt-[5%] flex flex-row gap-2">
+        تم برمجة هذا التطبيق من قبل 
+        <a target="_blank" href="https://amirbattal.com/" className="font-[HarmonyBold] underline hover:text-[#aaa8a3]"> أمير بطال</a>
+      </h1>
     </div>
   )
 }
