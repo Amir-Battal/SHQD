@@ -4,6 +4,8 @@ import { Button } from "./ui/button"
 import { ChevronLeft } from "lucide-react"
 import { Input } from "./ui/input"
 import { normalizeNumberInput } from "../utils/numberInput"
+import NotesRow from "./NotesRow"
+import { formatNumber } from "@/utils/formatNumber"
 
 interface Props {
   onBack: () => void
@@ -15,6 +17,8 @@ const Converter = ({ onBack }: Props) => {
 
   const result =
     oldAmount !== "" ? convertAndSuggest(oldAmount) : null
+
+    console.log(result);
 
 
   return (
@@ -47,27 +51,47 @@ const Converter = ({ onBack }: Props) => {
 
 
       {result && (
-        <>
-          <p>
+        <div className="px-[10%] w-full h-full flex flex-col">
+          <p className="text-[20px] lg:text-[30px] font-[Harmony] flex justify-center">
             المبلغ الجديد:
-            <strong> {result.exactNew}</strong>
+            <strong className="font-[Konde]"> {formatNumber(result.exactNew)}</strong>
           </p>
 
-          <h4>الأوراق المقترحة</h4>
+          <h4 className="text-[20px] lg:text-[30px] font-[Harmony] mb-[5%] flex justify-center">الأوراق المقترحة</h4>
 
-          {result.notes.map(n => (
-            <div key={n.note}>
-              {n.note} × {n.count}
-            </div>
-          ))}
+
+          <NotesRow notes={result.notes} />
+
 
           {result.remaining > 0 && (
-            <p style={{ color: "orange" }}>
-              باقي غير قابل للدفع:
-              <strong> {result.remaining}</strong>
-            </p>
+            <div>
+              <p className="items-end" style={{ color: "orange" }}>
+                المتبقي بالعملة القديمة:
+                <strong>
+                  <span className="font-[Konde]">
+                    {formatNumber(result.remaining)}
+                  </span>
+                  <span className="font-[Harmony]"> ل.س</span>
+                </strong>
+              </p>
+            </div>
+            
           )}
-        </>
+
+          {result.adjustment && (
+            <div className="mt-4 text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed">
+              يوجد فرق ظاهري قدره{" "}
+              <strong>{result.adjustment.needed}</strong> بسبب عدم توفر فئة{" "}
+              <strong>5</strong> بالعملة الجديدة.
+              <br />
+              لإتمام المبلغ، يتم دفع{" "}
+              <strong>{result.adjustment.pay}</strong> وإرجاع{" "}
+              <strong>{result.adjustment.change}</strong> كصرف.
+            </div>
+          )}
+
+
+        </div>
       )}
     </div>
   )

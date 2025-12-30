@@ -4,6 +4,8 @@ import { Button } from "./ui/button"
 import { ChevronLeft } from "lucide-react"
 import { normalizeNumberInput } from "../utils/numberInput"
 import { Input } from "./ui/input"
+import NotesRow from "./NotesRow"
+import { formatNumber } from "@/utils/formatNumber"
 
 interface Props {
   onBack: () => void
@@ -44,26 +46,30 @@ const CashHelper = ({ onBack }: Props) => {
       </div>
 
       {result && (
-        <>
-          <h4>الأوراق المقترحة</h4>
+        <div className="px-[10%] w-full flex flex-col">
+          <h4 className="text-[20px] lg:text-[30px] font-[Harmony] mb-[5%] flex justify-center">الأوراق المقترحة</h4>
 
           {result.notes.length === 0 && (
             <p>لا توجد أوراق مناسبة</p>
           )}
 
-          {result.notes.map(n => (
-            <div key={n.note}>
-              {n.note} × {n.count}
-            </div>
-          ))}
+          <NotesRow notes={result.notes} />
 
           {result.remaining > 0 && (
-            <p style={{ color: "red" }}>
-              مبلغ غير قابل للتجزئة:
-              <strong> {result.remaining}</strong>
+            <p style={{ color: "orange" }}>
+              المتبقي بالعملة القديمة:
+              <strong>
+                <span className="font-[Konde]">
+                  {formatNumber(result.remaining * 100)}
+                </span>
+                <span className="font-[Harmony]"> ل.س</span>
+              </strong>
+
             </p>
+
           )}
-        </>
+          
+        </div>
       )}
     </div>
   )

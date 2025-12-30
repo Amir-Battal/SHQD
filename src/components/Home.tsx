@@ -4,13 +4,14 @@ import Logo from "@/assets/Logo"
 
 
 interface Props {
-  onSelect: (mode: "convert" | "cash" | "newToOld") => void
+  onSelect: (mode: "convert" | "cash" | "newToOld") => void,
+  onLogoClick: () => void
 }
 
 
-const Home = ({ onSelect }: Props) => {
+const Home = ({ onSelect, onLogoClick }: Props) => {
   return (
-    <div className="page h-screen flex flex-col gap-10 items-center pt-[10%] md:pt-[10%] bg-[#eeeae1] text-[#1d4139]">
+    <div className="page h-screen flex flex-col gap-10 items-center justify-between py-[10%] md:pt-[10%] bg-[#eeeae1] text-[#1d4139]">
       <h2 className="text-[50px] font-[HarmonyBold]">اختر العملية</h2>
 
       <div className="flex flex-col gap-5 items-center font-[Harmony]">
@@ -36,7 +37,7 @@ const Home = ({ onSelect }: Props) => {
 
       </div>
 
-      <Logo size="fill-black w-[8%]" />
+      <Logo onClick={onLogoClick} size="fill-black w-[18%] md:w-[12%] lg:w-[8%] cursor-pointer" />
     </div>
   )
 }

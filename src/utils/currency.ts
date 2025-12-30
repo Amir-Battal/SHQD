@@ -7,11 +7,20 @@ export interface SuggestedNote {
   count: number
 }
 
+export interface AdjustmentInfo {
+  needed: number      // الفرق (مثلاً 5)
+  pay: number         // ما سيدفع (25)
+  change: number      // ما سيُرجع (20)
+}
+
+
 export interface ConvertResult {
   exactNew: number
   notes: SuggestedNote[]
   remaining: number
+  adjustment?: AdjustmentInfo
 }
+
 
 export interface CashSuggestResult {
   notes: SuggestedNote[]
@@ -26,9 +35,10 @@ export interface NewToOldResult {
 export const convertAndSuggest = (oldAmount: number): ConvertResult => {
   const exactNew = oldAmount / 100
 
-  const payable = Math.floor(exactNew)
-  let remainingToPay = payable
+  // أقصى مبلغ يمكن تكوينه بالأوراق المتوفرة
+  const payable = Math.floor(exactNew / 25) * 25
 
+  let remainingToPay = payable
   const notes: SuggestedNote[] = []
 
   for (const note of NEW_NOTES) {
@@ -39,12 +49,27 @@ export const convertAndSuggest = (oldAmount: number): ConvertResult => {
     }
   }
 
+  const diff = exactNew - payable
+
+  let adjustment: AdjustmentInfo | undefined
+
+  // حالة الفرق = 5 (لا توجد فئة 5)
+  if (diff === 5) {
+    adjustment = {
+      needed: 5,
+      pay: 25,
+      change: 20
+    }
+  }
+
   return {
     exactNew,
     notes,
-    remaining: exactNew - payable
+    remaining: diff * 100,
+    adjustment
   }
 }
+
 
 
 export const suggestNotesForNewAmount = (

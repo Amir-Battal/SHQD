@@ -11,12 +11,13 @@ const App = () => {
   const [screen, setScreen] = useState<Screen>("welcome")
 
   const goHome = () => setScreen("home")
+  const goWelcome = () => setScreen("welcome");
 
   if (screen === "welcome")
     return <Welcome onStart={() => setScreen("home")} />
 
   if (screen === "home")
-    return <Home onSelect={setScreen} />
+    return <Home onSelect={setScreen} onLogoClick={goWelcome} />
 
   if (screen === "convert")
     return <Converter onBack={goHome} />
