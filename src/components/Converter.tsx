@@ -18,19 +18,20 @@ const Converter = ({ onBack }: Props) => {
 
 
   return (
-    <div className="page h-screen flex flex-col gap-10 justify-center">
+    <div className="page h-screen flex flex-col gap-15 pt-[10%]">
       <div className="flex flex-col justify-center items-start px-[10%]">
-        <Button onClick={onBack} className="w-60 h-15 cursor-pointer">
-          <ChevronLeft style={{ width: '32px', height: '32px' }} />
-          <h1 className="text-[20px]">العودة إلى الرئيسية</h1>
+        <Button onClick={onBack} className="w-45 h-15 md:w-60 md:h-15 cursor-pointer">
+          <ChevronLeft className="hidden md:block" style={{ width: '32px', height: '32px' }} />
+          <ChevronLeft className="block md:hidden" style={{ width: '22px', height: '22px' }} />
+          <h1 className="text-[15px] md:text-[20px]">العودة إلى الرئيسية</h1>
         </Button>
       </div>
 
       <div className="flex flex-col gap-5 justify-center items-center">
-        <h2 className="text-[50px]">تحويل العملة</h2>
+        <h2 className="text-[30px] md:text-[50px]">تحويل العملة</h2>
 
         <Input
-          className="w-[40%] h-15"
+          className="w-[80%] md:w-[70%] lg:w-[40%] h-15"
           type="text"
           inputMode="numeric"
           pattern="[0-9]*"
