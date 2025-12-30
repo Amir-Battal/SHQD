@@ -64,9 +64,7 @@ const CashHelper = ({ onBack }: Props) => {
                 </span>
                 <span className="font-[Harmony]"> ل.س</span>
               </strong>
-
             </p>
-
           )}
           
         </div>

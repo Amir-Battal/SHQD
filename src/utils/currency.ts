@@ -35,8 +35,8 @@ export interface NewToOldResult {
 export const convertAndSuggest = (oldAmount: number): ConvertResult => {
   const exactNew = oldAmount / 100
 
-  // أقصى مبلغ يمكن تكوينه بالأوراق المتوفرة
-  const payable = Math.floor(exactNew / 25) * 25
+  // طالما فئة 10 موجودة، يمكن دفع أي مضاعف 10
+  const payable = Math.floor(exactNew / 10) * 10
 
   let remainingToPay = payable
   const notes: SuggestedNote[] = []
@@ -53,7 +53,7 @@ export const convertAndSuggest = (oldAmount: number): ConvertResult => {
 
   let adjustment: AdjustmentInfo | undefined
 
-  // حالة الفرق = 5 (لا توجد فئة 5)
+  // الحالة الوحيدة الخاصة: فرق = 5
   if (diff === 5) {
     adjustment = {
       needed: 5,
@@ -65,7 +65,7 @@ export const convertAndSuggest = (oldAmount: number): ConvertResult => {
   return {
     exactNew,
     notes,
-    remaining: diff * 100,
+    remaining: diff > 0 ? diff * 100 : 0,
     adjustment
   }
 }
