@@ -11,26 +11,25 @@ interface Props {
   onBack: () => void
 }
 
-
 const Converter = ({ onBack }: Props) => {
-  const [oldAmount, setOldAmount] = useState<number | "">("")
+  const [oldAmount, setOldAmount] = useState<number | "">("");
 
-  const result =
-    oldAmount !== "" ? convertAndSuggest(oldAmount) : null
+  const result = oldAmount !== "" ? convertAndSuggest(oldAmount) : null;
 
-    console.log(result);
-
+  console.log(result);
 
   return (
     <div className="page h-screen flex flex-col gap-15 pt-[10%] bg-[#eeeae1] text-[#1d4139]">
+      {/* زر العودة */}
       <div className="flex flex-col justify-center items-start px-[10%]">
         <Button onClick={onBack} className="w-45 h-15 md:w-60 md:h-15 cursor-pointer bg-[#1d4139] text-[#eeeae1] hover:bg-[#1a332e]">
-          <ChevronLeft className="hidden md:block" style={{ width: '32px', height: '32px' }} />
-          <ChevronLeft className="block md:hidden" style={{ width: '22px', height: '22px' }} />
+          <ChevronLeft className="hidden md:block" style={{ width: "32px", height: "32px" }} />
+          <ChevronLeft className="block md:hidden" style={{ width: "22px", height: "22px" }} />
           <h1 className="text-[15px] md:text-[20px] font-[Harmony]">العودة إلى الرئيسية</h1>
         </Button>
       </div>
 
+      {/* المبلغ القديم */}
       <div className="flex flex-col gap-5 justify-center items-center">
         <h2 className="text-[30px] md:text-[50px] font-[HarmonyBold]">تحويل العملة</h2>
 
@@ -42,14 +41,13 @@ const Converter = ({ onBack }: Props) => {
           placeholder="المبلغ بالعملة القديمة"
           value={oldAmount}
           onChange={(e) => {
-            const normalized = normalizeNumberInput(e.target.value)
-            setOldAmount(normalized === "" ? "" : Number(normalized))
+            const normalized = normalizeNumberInput(e.target.value);
+            setOldAmount(normalized === "" ? "" : Number(normalized));
           }}
         />
       </div>
 
-
-
+      {/* عرض النتيجة */}
       {result && (
         <div className="px-[10%] w-full h-full flex flex-col">
           <p className="text-[20px] lg:text-[30px] font-[Harmony] flex justify-center">
@@ -58,15 +56,15 @@ const Converter = ({ onBack }: Props) => {
           </p>
 
           <h4 className="text-[20px] lg:text-[30px] font-[Harmony] mb-[5%] flex justify-center">الأوراق المقترحة</h4>
-
-
           <NotesRow notes={result.notes} />
 
-
+          {/* إذا تبقى مبلغ */}
           {result.remaining > 0 && (
             <div>
               <p className="items-end" style={{ color: "orange" }}>
+                <span className="font-[Harmony]">
                 المتبقي بالعملة القديمة:
+                </span>
                 <strong>
                   <span className="font-[Konde]">
                     {formatNumber(result.remaining)}
@@ -75,26 +73,21 @@ const Converter = ({ onBack }: Props) => {
                 </strong>
               </p>
             </div>
-            
           )}
 
+          {/* تعديل الفرق الظاهر */}
           {result.adjustment && (
             <div className="mt-4 text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed">
-              يوجد فرق ظاهري قدره{" "}
-              <strong>{result.adjustment.needed}</strong> بسبب عدم توفر فئة{" "}
-              <strong>5</strong> بالعملة الجديدة.
+              يوجد فرق ظاهري بسبب عدم توفر فئة 5 ليرات و 1 ليرة في العملة الجديدة
               <br />
-              لإتمام المبلغ، يتم دفع{" "}
-              <strong>{result.adjustment.pay}</strong> وإرجاع{" "}
-              <strong>{result.adjustment.change}</strong> كصرف.
+              لإتمام المبلغ من الممكن دفع 25 وإرجاع 20 للحصول على 5 حالياً
             </div>
           )}
-
-
         </div>
       )}
     </div>
-  )
-}
+  );
+};
+
 
 export default Converter
