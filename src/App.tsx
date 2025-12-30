@@ -9,6 +9,8 @@ type Screen = "welcome" | "home" | "convert" | "cash"
 const App = () => {
   const [screen, setScreen] = useState<Screen>("welcome")
 
+  const goHome = () => setScreen("home")
+
   if (screen === "welcome")
     return <Welcome onStart={() => setScreen("home")} />
 
@@ -16,10 +18,10 @@ const App = () => {
     return <Home onSelect={setScreen} />
 
   if (screen === "convert")
-    return <Converter />
+    return <Converter onBack={goHome} />
 
   if (screen === "cash")
-    return <CashHelper />
+    return <CashHelper onBack={goHome} />
 
   return null
 }

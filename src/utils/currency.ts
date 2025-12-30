@@ -9,9 +9,8 @@ export interface SuggestedNote {
 
 export interface ConvertResult {
   exactNew: number
-  paidNotes: SuggestedNote[]
-  paidTotal: number
-  change: number
+  notes: SuggestedNote[]
+  remaining: number
 }
 
 export interface CashSuggestResult {
@@ -19,28 +18,27 @@ export interface CashSuggestResult {
   remaining: number
 }
 
+
 export const convertAndSuggest = (oldAmount: number): ConvertResult => {
   const exactNew = oldAmount / 100
 
-  // نبحث عن أقل مبلغ يمكن دفعه ≥ المبلغ المطلوب
-  let target = Math.ceil(exactNew / 10) * 10
+  const payable = Math.floor(exactNew)
+  let remainingToPay = payable
 
-  let remaining = target
-  const paidNotes: SuggestedNote[] = []
+  const notes: SuggestedNote[] = []
 
   for (const note of NEW_NOTES) {
-    const count = Math.floor(remaining / note)
+    const count = Math.floor(remainingToPay / note)
     if (count > 0) {
-      paidNotes.push({ note, count })
-      remaining -= note * count
+      notes.push({ note, count })
+      remainingToPay -= note * count
     }
   }
 
   return {
     exactNew,
-    paidNotes,
-    paidTotal: target,
-    change: target - exactNew
+    notes,
+    remaining: exactNew - payable
   }
 }
 

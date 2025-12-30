@@ -1,52 +1,73 @@
 import { useState } from "react"
 import { convertAndSuggest } from "../utils/currency"
+import { Button } from "./ui/button"
+import { ChevronLeft } from "lucide-react"
+import { Input } from "./ui/input"
+import { normalizeNumberInput } from "../utils/numberInput"
 
-const Converter = () => {
+interface Props {
+  onBack: () => void
+}
+
+
+const Converter = ({ onBack }: Props) => {
   const [oldAmount, setOldAmount] = useState<number | "">("")
+
   const result =
     oldAmount !== "" ? convertAndSuggest(oldAmount) : null
 
+
   return (
-    <div className="page">
-      <h2>تحويل العملة مع اقتراح الدفع</h2>
+    <div className="page h-screen flex flex-col gap-10 justify-center">
+      <div className="flex flex-col justify-center items-start px-[10%]">
+        <Button onClick={onBack} className="w-60 h-15 cursor-pointer">
+          <ChevronLeft style={{ width: '32px', height: '32px' }} />
+          <h1 className="text-[20px]">العودة إلى الرئيسية</h1>
+        </Button>
+      </div>
 
-      <input
-        type="number"
-        placeholder="المبلغ بالعملة القديمة"
-        value={oldAmount}
-        onChange={(e) =>
-          setOldAmount(e.target.value === "" ? "" : Number(e.target.value))
-        }
-      />
+      <div className="flex flex-col gap-5 justify-center items-center">
+        <h2 className="text-[50px]">تحويل العملة</h2>
 
-    {result && (
-      <>
-        <p>
-          المبلغ بعد التحويل:
-          <strong> {result.exactNew.toFixed(2)}</strong>
-        </p>
+        <Input
+          className="w-[40%] h-15"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          placeholder="المبلغ بالعملة القديمة"
+          value={oldAmount}
+          onChange={(e) => {
+            const normalized = normalizeNumberInput(e.target.value)
+            setOldAmount(normalized === "" ? "" : Number(normalized))
+          }}
+        />
+      </div>
 
-        <h4>المبلغ المدفوع</h4>
-        {result.paidNotes.map(n => (
-          <div key={n.note}>
-            {n.note} × {n.count}
-          </div>
-        ))}
 
-        <p>
-          المجموع المدفوع:
-          <strong> {result.paidTotal}</strong>
-        </p>
 
-        {result.change > 0 && (
-          <p style={{ color: "green" }}>
-            الباقي:
-            <strong> {result.change.toFixed(2)}</strong>
+      {result && (
+        <>
+          <p>
+            المبلغ الجديد:
+            <strong> {result.exactNew}</strong>
           </p>
-        )}
-      </>
-    )}
 
+          <h4>الأوراق المقترحة</h4>
+
+          {result.notes.map(n => (
+            <div key={n.note}>
+              {n.note} × {n.count}
+            </div>
+          ))}
+
+          {result.remaining > 0 && (
+            <p style={{ color: "orange" }}>
+              باقي غير قابل للدفع:
+              <strong> {result.remaining}</strong>
+            </p>
+          )}
+        </>
+      )}
     </div>
   )
 }
