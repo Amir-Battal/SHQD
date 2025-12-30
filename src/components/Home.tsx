@@ -7,7 +7,7 @@ interface Props {
 
 const Home = ({ onSelect }: Props) => {
   return (
-    <div className="page h-screen flex flex-col gap-20 items-center mt-[30%] md:mt-0 md:justify-center">
+    <div className="page h-screen flex flex-col gap-20 items-center pt-[10%] md:pt-[20%]">
       <h2 className="text-[50px]">اختر العملية</h2>
 
       <div className="flex flex-col gap-5 items-center">
