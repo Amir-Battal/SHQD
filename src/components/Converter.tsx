@@ -95,6 +95,7 @@ const Converter = ({ onBack }: Props) => {
               setOldAmount(Number(normalized))
             }
           }}
+          
         />
 
 

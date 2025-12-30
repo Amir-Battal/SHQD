@@ -10,10 +10,10 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["icon-192.png", "icon-512.png"],
+      includeAssets: ["./src/assets/SHQD-ICON.jpg", "./src/assets/SHQD-ICON.jpg"],
       manifest: {
         name: "محول العملة السورية",
-        short_name: "SY Currency",
+        short_name: "شقد",
         description: "تحويل العملة السورية بعد حذف صفرين",
         theme_color: "#0f172a",
         background_color: "#ffffff",
@@ -21,14 +21,14 @@ export default defineConfig({
         start_url: "/",
         icons: [
           {
-            src: "icon-192.png",
+            src: "./src/assets/SHQD-ICON.jpg",
             sizes: "192x192",
-            type: "image/png"
+            type: "image/jpg"
           },
           {
-            src: "icon-512.png",
+            src: "./src/assets/SHQD-ICON.jpg",
             sizes: "512x512",
-            type: "image/png"
+            type: "image/jpg"
           }
         ]
       }
