@@ -3,8 +3,9 @@ import Welcome from "./components/Welcome"
 import Home from "./components/Home"
 import Converter from "./components/Converter"
 import CashHelper from "./components/CashHelper"
+import NewToOldConverter from "./components/NewToOldConverter"
 
-type Screen = "welcome" | "home" | "convert" | "cash"
+type Screen = "welcome" | "home" | "convert" | "cash" | "newToOld"
 
 const App = () => {
   const [screen, setScreen] = useState<Screen>("welcome")
@@ -22,6 +23,9 @@ const App = () => {
 
   if (screen === "cash")
     return <CashHelper onBack={goHome} />
+
+  if (screen === "newToOld")
+    return <NewToOldConverter onBack={goHome} />
 
   return null
 }

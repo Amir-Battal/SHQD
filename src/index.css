@@ -125,3 +125,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@font-face {
+  font-family: 'Harmony';
+  src: url(./assets/fonts/Arabic/HarmonyOS_Sans_Naskh_Arabic_Regular.ttf);
+}
+@font-face {
+  font-family: 'HarmonyBold';
+  src: url(./assets/fonts/Arabic/HarmonyOS_Sans_Naskh_Arabic_Bold.ttf);
+}
+
+@font-face {
+  font-family: 'Konde';
+  src: url(./assets/fonts/English/konde-konde-regular-400.ttf);
+}
+@font-face {
+  font-family: 'KondeBold';
+  src: url(./assets/fonts/English/konde-konde-bold-700.ttf);
+}
+
+@font-face {
+  font-family: 'Sanshiro';
+  src: url(./assets/fonts/English/Numbers/Sanshiro-Regular.ttf);
+}
+@font-face {
+  font-family: 'SanshiroBold';
+  src: url(./assets/fonts/English/Numbers/Sanshiro-Bold.ttf);
+}

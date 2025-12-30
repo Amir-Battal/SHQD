@@ -18,6 +18,10 @@ export interface CashSuggestResult {
   remaining: number
 }
 
+export interface NewToOldResult {
+  exactOld: number
+}
+
 
 export const convertAndSuggest = (oldAmount: number): ConvertResult => {
   const exactNew = oldAmount / 100
@@ -64,5 +68,12 @@ export const suggestNotesForNewAmount = (
   return {
     notes,
     remaining: amount - payable
+  }
+}
+
+
+export const convertNewToOld = (newAmount: number): NewToOldResult => {
+  return {
+    exactOld: newAmount * 100
   }
 }
