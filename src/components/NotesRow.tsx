@@ -30,7 +30,7 @@ const NotesRow = ({ notes }: Props) => {
               <Icon />
             </div>
 
-            <div className="font-[HarmonyBold] text-[18px]">
+            <div className="font-[Konde] text-[18px]">
               {found.count} × {noteValue}
             </div>
           </div>
