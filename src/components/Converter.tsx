@@ -12,9 +12,24 @@ interface Props {
 }
 
 const Converter = ({ onBack }: Props) => {
-  const [oldAmount, setOldAmount] = useState<number | "">("");
+  // const [oldAmount, setOldAmount] = useState<number | "">("");
+  const [oldAmount, setOldAmount] = useState<number | "">("")
+
 
   const result = oldAmount !== "" ? convertAndSuggest(oldAmount) : null;
+
+
+  // // يحذف أي شيء غير الأرقام
+  // const onlyDigits = (value: string) => value.replace(/\D/g, "")
+
+  // // تنسيق الرقم إلى ثلاثيات
+  // const formatWithThousands = (value: number | "") =>
+  // value === "" ? "" : value.toLocaleString("en-US")
+
+  const formatForInput = (value: number | "") =>
+    value === "" ? "" : value.toLocaleString("en-US")
+
+
 
   console.log(result);
 
@@ -33,7 +48,7 @@ const Converter = ({ onBack }: Props) => {
       <div className="flex flex-col gap-5 justify-center items-center">
         <h2 className="text-[30px] md:text-[50px] font-[HarmonyBold]">تحويل العملة</h2>
 
-        <Input
+        {/* <Input
           className="w-[80%] md:w-[70%] lg:w-[40%] h-15 border-[0.5px] border-[#1d4139] text-[#1d4139] placeholder:text-[#1d4139] text-center placeholder:font-[Harmony]"
           type="text"
           inputMode="numeric"
@@ -44,7 +59,45 @@ const Converter = ({ onBack }: Props) => {
             const normalized = normalizeNumberInput(e.target.value);
             setOldAmount(normalized === "" ? "" : Number(normalized));
           }}
+        /> */}
+        <Input
+          className="w-[80%] md:w-[70%] lg:w-[40%] h-15 border-[0.5px] border-[#1d4139]
+                    text-[#1d4139] placeholder:text-[#1d4139] text-center placeholder:font-[Harmony]"
+          type="text"
+          inputMode="numeric"
+          placeholder="المبلغ بالعملة الجديدة"
+
+          /* عرض منسّق */
+          value={formatForInput(oldAmount)}
+
+          /* إدخال يدوي (يدعم عربي + إنجليزي) */
+          onChange={(e) => {
+            const normalized = normalizeNumberInput(e.target.value)
+            setOldAmount(normalized === "" ? "" : Number(normalized))
+          }}
+
+          /* منع أي زر غير رقمي */
+          onKeyDown={(e) => {
+            if (
+              !/[0-9٠-٩]/.test(e.key) &&
+              !["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)
+            ) {
+              e.preventDefault()
+            }
+          }}
+
+          /* منع اللصق إلا أرقام (عربي أو إنجليزي) */
+          onPaste={(e) => {
+            e.preventDefault()
+            const pasted = e.clipboardData.getData("text")
+            const normalized = normalizeNumberInput(pasted)
+            if (normalized) {
+              setOldAmount(Number(normalized))
+            }
+          }}
         />
+
+
       </div>
 
       {/* عرض النتيجة */}
