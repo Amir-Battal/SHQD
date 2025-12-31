@@ -30,88 +30,48 @@ export interface ConvertResult {
 }
 
 
-function findBestCombination(amount: number): SuggestedNote[] | null {
-  const dp: Array<SuggestedNote[] | null> = Array(amount + 1).fill(null)
-  dp[0] = []
 
-  for (let i = 1; i <= amount; i++) {
-    let best: SuggestedNote[] | null = null
+function greedySuggest(amount: number): SuggestedNote[] {
+  const notes: SuggestedNote[] = []
+  let remaining = amount
 
-    for (const note of NEW_NOTES) {
-      if (i - note < 0) continue
-      const prev = dp[i - note]
-      if (!prev) continue
-
-      const candidate = structuredClone(prev)
-      const found = candidate.find(n => n.note === note)
-      if (found) found.count++
-      else candidate.push({ note, count: 1 })
-
-      // تقييم الأفضل
-      if (
-        !best ||
-        totalCount(candidate) < totalCount(best) ||
-        (
-          totalCount(candidate) === totalCount(best) &&
-          totalValue(candidate) > totalValue(best)
-        )
-      ) {
-        best = candidate
-      }
+  for (const note of NEW_NOTES) {
+    if (remaining >= note) {
+      const count = Math.floor(remaining / note)
+      notes.push({ note, count })
+      remaining -= note * count
     }
-
-    dp[i] = best
   }
 
-  return dp[amount]
+  return notes
 }
-
-const totalCount = (notes: SuggestedNote[]) =>
-  notes.reduce((s, n) => s + n.count, 0)
-
-const totalValue = (notes: SuggestedNote[]) =>
-  notes.reduce((s, n) => s + n.note * n.count, 0)
 
 
 // دالة لتحويل العملة القديمة إلى العملة الجديدة واختيار أفضل توزيع
 export const convertAndSuggest = (oldAmount: number): ConvertResult => {
   const exactNew = Math.floor(oldAmount / 100)
+  const remainingOld = oldAmount % 100
 
-  // جرّب المبلغ كامل
-  const full = findBestCombination(exactNew)
-  if (full) {
-    return {
-      exactNew,
-      notes: full,
-      remaining: oldAmount % 100
-    }
-  }
+  const notes = greedySuggest(exactNew)
 
-  // إن لم يوجد حل كامل → جرّب أقل مبلغ ممكن
-  for (let i = exactNew - 1; i >= 0; i--) {
-    const combo = findBestCombination(i)
-    if (combo) {
-      return {
-        exactNew,
-        notes: combo,
-        remaining: (exactNew - i) * 100 + (oldAmount % 100),
-        adjustment: {
-          reason: "لا يمكن دفع المبلغ كاملًا بالعملة الجديدة"
-        }
-      }
-    }
-  }
+  const usedNew = notes.reduce(
+    (sum, n) => sum + n.note * n.count,
+    0
+  )
 
-  // لا شيء ممكن
+  const remainingNew = exactNew - usedNew
+
   return {
     exactNew,
-    notes: [],
-    remaining: oldAmount,
-    adjustment: {
-      reason: "لا يمكن استخدام العملة الجديدة لهذا المبلغ"
-    }
+    notes,
+    remaining: remainingNew * 100 + remainingOld,
+    adjustment:
+      remainingNew > 0
+        ? { reason: "لا يمكن تمثيل المبلغ كاملًا بفئات العملة الجديدة" }
+        : undefined
   }
 }
+
 
 
 
@@ -127,42 +87,26 @@ export interface CashHelperResult {
 
 export const cashHelperSuggest = (newAmount: number): CashHelperResult => {
   const exactNew = Math.floor(newAmount)
+  const notes = greedySuggest(exactNew)
 
-  // جرّب دفع المبلغ كاملًا
-  const full = findBestCombination(exactNew)
-  if (full) {
-    return {
-      exactNew,
-      notes: full,
-      remainingOld: 0
-    }
-  }
+  const used = notes.reduce(
+    (sum, n) => sum + n.note * n.count,
+    0
+  )
 
-  // جرّب أقل مبلغ ممكن
-  for (let i = exactNew - 1; i >= 0; i--) {
-    const combo = findBestCombination(i)
-    if (combo) {
-      return {
-        exactNew,
-        notes: combo,
-        remainingOld: (exactNew - i) * 100,
-        adjustment: {
-          reason: "لا يمكن دفع المبلغ كاملًا بالعملة الجديدة"
-        }
-      }
-    }
-  }
+  const remainingNew = exactNew - used
 
-  // لا حل
   return {
     exactNew,
-    notes: [],
-    remainingOld: exactNew * 100,
-    adjustment: {
-      reason: "لا يمكن الدفع بالعملة الجديدة"
-    }
+    notes,
+    remainingOld: remainingNew * 100,
+    adjustment:
+      remainingNew > 0
+        ? { reason: "لا يمكن دفع المبلغ كاملًا بالعملة الجديدة" }
+        : undefined
   }
 }
+
 
 
 export interface NewToOldResult {
