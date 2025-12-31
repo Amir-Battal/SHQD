@@ -132,7 +132,7 @@ const Converter = ({ onBack }: Props) => {
 
             {/* تعديل الفرق الظاهر */}
             {result.adjustment && (
-              <div className="text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed bg-[#eeeae1]">
+              <div className="text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed bg-[#eeeae1] pb-[5%]">
                 يوجد فرق ظاهري بسبب عدم توفر فئة 5 ليرات و 1 ليرة في العملة الجديدة
                 <br />
                 لإتمام المبلغ من الممكن دفع 25 وإرجاع 20 للحصول على 5 حالياً
