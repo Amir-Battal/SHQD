@@ -94,7 +94,7 @@ export const convertAndSuggest = (oldAmount: number): ConvertResult => {
       return {
         exactNew,
         notes: combo,
-        remaining: (exactNew - i) * 100,
+        remaining: (exactNew - i) * 100 + (oldAmount % 100),
         adjustment: {
           reason: "لا يمكن دفع المبلغ كاملًا بالعملة الجديدة"
         }
