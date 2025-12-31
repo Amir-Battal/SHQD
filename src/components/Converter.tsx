@@ -112,31 +112,33 @@ const Converter = ({ onBack }: Props) => {
           <h4 className="text-[20px] lg:text-[30px] font-[Harmony] mb-[5%] flex justify-center">الأوراق المقترحة</h4>
           <NotesRow notes={result.notes} />
 
-          {/* إذا تبقى مبلغ */}
-          {result.remaining > 0 && (
-            <div>
-              <p className="items-end" style={{ color: "orange" }}>
-                <span className="font-[Harmony]">
-                المتبقي بالعملة القديمة:
-                </span>
-                <strong>
-                  <span className="font-[Konde]">
-                    {formatNumber(result.remaining)}
+          <div className="flex flex-col gap-2">
+            {/* إذا تبقى مبلغ */}
+            {result.remaining > 0 && (
+              <div>
+                <p className="items-end" style={{ color: "orange" }}>
+                  <span className="font-[Harmony]">
+                  المتبقي بالعملة القديمة:
                   </span>
-                  <span className="font-[Harmony]"> ل.س</span>
-                </strong>
-              </p>
-            </div>
-          )}
+                  <strong>
+                    <span className="font-[Konde]">
+                      {formatNumber(result.remaining)}
+                    </span>
+                    <span className="font-[Harmony]"> ل.س</span>
+                  </strong>
+                </p>
+              </div>
+            )}
 
-          {/* تعديل الفرق الظاهر */}
-          {result.adjustment && (
-            <div className="mt-4 text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed">
-              يوجد فرق ظاهري بسبب عدم توفر فئة 5 ليرات و 1 ليرة في العملة الجديدة
-              <br />
-              لإتمام المبلغ من الممكن دفع 25 وإرجاع 20 للحصول على 5 حالياً
-            </div>
-          )}
+            {/* تعديل الفرق الظاهر */}
+            {result.adjustment && (
+              <div className="text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed">
+                يوجد فرق ظاهري بسبب عدم توفر فئة 5 ليرات و 1 ليرة في العملة الجديدة
+                <br />
+                لإتمام المبلغ من الممكن دفع 25 وإرجاع 20 للحصول على 5 حالياً
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

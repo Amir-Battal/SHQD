@@ -59,27 +59,29 @@ const CashHelper = ({ onBack }: Props) => {
 
           <NotesRow notes={result.notes} />
 
-          {result.remainingOld > 0 && (
-            <p style={{ color: "orange" }}>
-              <span className="font-[Harmony]">
-              المتبقي بالعملة القديمة:
-              </span>
-              <strong>
-                <span className="font-[Konde]">
-                  {formatNumber(result.remainingOld)}
-                </span>{" "}
-                ل.س
-              </strong>
-            </p>
-          )}
+          <div className="flex flex-col gap-2">
+            {result.remainingOld > 0 && (
+              <p style={{ color: "orange" }}>
+                <span className="font-[Harmony]">
+                المتبقي بالعملة القديمة:
+                </span>
+                <strong>
+                  <span className="font-[Konde]">
+                    {formatNumber(result.remainingOld)}
+                  </span>{" "}
+                  ل.س
+                </strong>
+              </p>
+            )}
 
-          {result.adjustment && (
-            <div className="mt-4 text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed">
-              يوجد فرق ظاهري بسبب عدم توفر فئة 5 ليرات و 1 ليرة في العملة الجديدة
-              <br />
-              لإتمام المبلغ من الممكن دفع 25 وإرجاع 20 للحصول على 5 حالياً
-            </div>
-          )}
+            {result.adjustment && (
+              <div className="text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed">
+                يوجد فرق ظاهري بسبب عدم توفر فئة 5 ليرات و 1 ليرة في العملة الجديدة
+                <br />
+                لإتمام المبلغ من الممكن دفع 25 وإرجاع 20 للحصول على 5 حالياً
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
