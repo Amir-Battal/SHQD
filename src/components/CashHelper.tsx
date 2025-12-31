@@ -51,7 +51,7 @@ const CashHelper = ({ onBack }: Props) => {
 
       {/* النتيجة */}
       {result && (
-        <div className="px-[10%] w-full flex flex-col">
+        <div className="px-[10%] w-full flex flex-col bg-[#eeeae1]">
 
           <h4 className="text-[20px] lg:text-[30px] font-[Harmony] mb-[5%] text-center">
             الأوراق المقترحة
@@ -75,7 +75,7 @@ const CashHelper = ({ onBack }: Props) => {
             )}
 
             {result.adjustment && (
-              <div className="text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed">
+              <div className="text-center text-[12px] md:text-[16px] text-orange-700 font-[Harmony] leading-relaxed bg-[#eeeae1]">
                 يوجد فرق ظاهري بسبب عدم توفر فئة 5 ليرات و 1 ليرة في العملة الجديدة
                 <br />
                 لإتمام المبلغ من الممكن دفع 25 وإرجاع 20 للحصول على 5 حالياً
