@@ -65,7 +65,7 @@ const Converter = ({ onBack }: Props) => {
                     text-[#1d4139] placeholder:text-[#1d4139] text-center placeholder:font-[Harmony]"
           type="text"
           inputMode="numeric"
-          placeholder="المبلغ بالعملة الجديدة"
+          placeholder="المبلغ بالعملة القديمة"
 
           /* عرض منسّق */
           value={formatForInput(oldAmount)}
