@@ -46,31 +46,118 @@ function greedySuggest(amount: number): SuggestedNote[] {
   return notes
 }
 
+function bestSuggest(amount: number): {
+  notes: SuggestedNote[]
+  remainingNew: number
+} {
+  let best: {
+    notes: SuggestedNote[]
+    remainingNew: number
+  } | null = null
 
-// دالة لتحويل العملة القديمة إلى العملة الجديدة واختيار أفضل توزيع
+  for (let c50 = Math.floor(amount / 50); c50 >= 0; c50--) {
+    for (let c25 = Math.floor((amount - c50 * 50) / 25); c25 >= 0; c25--) {
+      const used = c50 * 50 + c25 * 25
+      if (used > amount) continue
+
+      const rest = amount - used
+      const c10 = Math.floor(rest / 10)
+      const remainingNew = rest - c10 * 10
+
+      const notes: SuggestedNote[] = []
+      if (c50) notes.push({ note: 50, count: c50 })
+      if (c25) notes.push({ note: 25, count: c25 })
+      if (c10) notes.push({ note: 10, count: c10 })
+
+      if (
+        !best ||
+        remainingNew < best.remainingNew ||
+        (remainingNew === best.remainingNew &&
+          notes.reduce((s, n) => s + n.count, 0) <
+            best.notes.reduce((s, n) => s + n.count, 0))
+      ) {
+        best = { notes, remainingNew }
+      }
+    }
+  }
+
+  return best ?? { notes: [], remainingNew: amount }
+}
+
+
+
+function greedyBig(amount: number): SuggestedNote[] {
+  const BIG_NOTES = [500, 200, 100] as const
+  const notes: SuggestedNote[] = []
+  let remaining = amount
+
+  for (const note of BIG_NOTES) {
+    if (remaining >= note) {
+      const count = Math.floor(remaining / note)
+      if (count > 0) {
+        notes.push({ note, count })
+        remaining -= note * count
+      }
+    }
+  }
+
+  return notes
+}
+
+
+
+const SMART_LIMIT_OLD = 10000 // الحد الذي نستخدم تحته الآلية الذكية
+
+function mergeNotes(a: SuggestedNote[], b: SuggestedNote[]): SuggestedNote[] {
+  const map = new Map<number, number>()
+
+  for (const n of [...a, ...b]) {
+    map.set(n.note, (map.get(n.note) ?? 0) + n.count)
+  }
+
+  return Array.from(map.entries())
+    .map(([note, count]) => ({ note: note as Note, count }))
+    .sort((a, b) => b.note - a.note)
+}
+
+
+
 export const convertAndSuggest = (oldAmount: number): ConvertResult => {
   const exactNew = Math.floor(oldAmount / 100)
   const remainingOld = oldAmount % 100
 
-  const notes = greedySuggest(exactNew)
+  const useBig = oldAmount >= SMART_LIMIT_OLD
 
-  const usedNew = notes.reduce(
-    (sum, n) => sum + n.note * n.count,
-    0
-  )
+  const bigPart = useBig
+    ? exactNew - (exactNew % 100)
+    : 0
 
-  const remainingNew = exactNew - usedNew
+  const restPart = exactNew - bigPart
+
+  const bigNotes = bigPart > 0 ? greedyBig(bigPart) : []
+
+  const smallResult =
+    restPart > 0
+      ? bestSuggest(restPart)
+      : { notes: [], remainingNew: 0 }
+
+  const notes = mergeNotes(bigNotes, smallResult.notes)
+
+  const remaining =
+    smallResult.remainingNew * 100 + remainingOld
 
   return {
     exactNew,
     notes,
-    remaining: remainingNew * 100 + remainingOld,
+    remaining,
     adjustment:
-      remainingNew > 0
-        ? { reason: "لا يمكن تمثيل المبلغ كاملًا بفئات العملة الجديدة" }
+      remaining > 0
+        ? { reason: "تم استخدام الفئات الكبيرة مع معالجة ذكية لمرتبة الألف" }
         : undefined
   }
 }
+
+
 
 
 
