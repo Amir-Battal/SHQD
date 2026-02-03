@@ -54,18 +54,18 @@
 
 ## 🖥️ How To Use
 
-Open <a href="https://shqd.amirbattal.com">SHQD App</a>
+Open <a href="https://shqd.amirbattal.com" target="_blank">SHQD App</a>
 Enter the amount in the old Syrian currency
 The value is automatically converted to the new currency
 You can install the app directly on your phone from the browser
 
-To learn how to install and use the app offline, you can watch this <a href="https://www.instagram.com/p/DS7gNFnjCYj/">Video</a>
+To learn how to install and use the app offline, you can watch this <a href="https://www.instagram.com/p/DS7gNFnjCYj/" target="_blank">Video</a>
 
 
 
 ## 👤 Author
 
-<a href="amirbattal.com" target="_blank">Amir Battal</a>
+<a href="https://amirbattal.com" target="_blank">Amir Battal</a>
 
 ---
 
