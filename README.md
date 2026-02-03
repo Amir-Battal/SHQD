@@ -20,6 +20,7 @@
 
 **SHQD** is a lightweight and practical web application designed to convert values from the old Syrian currency to the new Syrian currency after the removal of two zeros. The app was built in parallel with the launch of the new Syrian currency to provide users with an immediate and reliable tool during this transition period.
 
+<br/>
 
 ## 🔗 Live Demo
 
@@ -36,6 +37,8 @@
   <a href="#author">Author</a>
 </p>
 
+<br/>
+
 ## Tech Stack
 
 ### Frontend
@@ -44,7 +47,9 @@
 - Lucide Icons
 - Shadcn
 - Tailwind CSS
-  
+
+
+<br/>
 
 ## Features
 
@@ -55,6 +60,8 @@
 - 🎯 Clean, simple, and user-friendly interface
 - ⚡ Fast performance and smooth user experience
 
+
+<br/>
 
 ## Getting Started Locally
 
@@ -73,6 +80,8 @@ npm run
 ```
 
 
+<br/>
+
 ## How To Use
 
 Open <a href="https://shqd.amirbattal.com" target="_blank">SHQD App</a>
@@ -83,6 +92,8 @@ You can install the app directly on your phone from the browser
 To learn how to install and use the app offline, you can watch this <a href="https://www.instagram.com/p/DS7gNFnjCYj/" target="_blank">Video</a>
 
 
+
+<br/>
 
 ## Author
 
