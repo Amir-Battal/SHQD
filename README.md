@@ -31,9 +31,9 @@
 <p align="center">
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#features">Features</a> •
-  <a href="#how-to-use">How To Use</a> •
   <a href="#getting-started-locally">Getting Started Locally</a> •
-  <a href="#license">Author</a>
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#author">Author</a>
 </p>
 
 ## Tech Stack
