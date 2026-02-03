@@ -23,16 +23,20 @@
 
 ## 🔗 Live Demo
 
+<div align="center">
+  
 [SHQD App](https://shqd.amirbattal.com)
+</div>
 
 <p align="center">
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#features">Features</a> •
   <a href="#how-to-use">How To Use</a> •
+  <a href="#getting-started-locally">Getting Started Locally</a> •
   <a href="#license">Author</a>
 </p>
 
-## 🧰 Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -42,7 +46,7 @@
 - Tailwind CSS
   
 
-## ✨ Features
+## Features
 
 - 🔄 Instant conversion from the old Syrian currency to the new one
 - 🧮 Accurate results without manual calculations
@@ -52,7 +56,24 @@
 - ⚡ Fast performance and smooth user experience
 
 
-## 🖥️ How To Use
+## Getting Started Locally
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Amir-Battal/SHQD.git
+cd shqd
+```
+
+### 2. Setup Frontend
+
+```
+npm install
+npm run
+```
+
+
+## How To Use
 
 Open <a href="https://shqd.amirbattal.com" target="_blank">SHQD App</a>
 Enter the amount in the old Syrian currency
@@ -63,7 +84,7 @@ To learn how to install and use the app offline, you can watch this <a href="htt
 
 
 
-## 👤 Author
+## Author
 
 <a href="https://amirbattal.com" target="_blank">Amir Battal</a>
 
