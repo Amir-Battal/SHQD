@@ -14,7 +14,7 @@
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![PWA](https://img.shields.io/badge/pwa-%235A0FC8.svg?style=for-the-badge&logo=pwa&logoColor=white)
 ![Responsive](https://img.shields.io/badge/responsive-design-success?style=for-the-badge)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
 </div>
 
