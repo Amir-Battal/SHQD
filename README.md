@@ -2,7 +2,7 @@
   <br>
   <a href="https://github.com/Amir-Battal">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="react.js" width="200">
-    ![SHQD-ICON](https://github.com/user-attachments/assets/aa63124d-422d-4a25-a96f-e77bdefa75b5)
+    <img src="https://github.com/user-attachments/assets/aa63124d-422d-4a25-a96f-e77bdefa75b5" alt="shqd" width="200">
   </a>
   <br>
   Shqd | شقد
